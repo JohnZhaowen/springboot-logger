@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="60 seconds" debug="false">
+
+	<appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<pattern><![CDATA[
+			%date{yyyy-MM-dd HH:mm:ss.SSS}|%X{sessionId}|%X{gloId}|%level|%X{req_id}|%X{userId}|%X{user_name}|%logger{10}|%msg%n
+			]]></pattern>
+		</layout>
+	</appender>
+
+	<!-- <appender name="proxyFile"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${catalina.base}/logs/mall-vendor-proxy.log</file>
+		<prudent>false</prudent>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${catalina.base}/logs/mall-vendor-proxy.%d{yyyyMMdd}.%i.log
+			</fileNamePattern>
+			<maxHistory>60</maxHistory>
+			<timeBasedFileNamingAndTriggeringPolicy
+				class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>100MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<pattern>
+			<![CDATA[
+			%date{yy-MM-dd HH:mm:ss.SSS}|%X{sessionId}|%X{{gloId}}|%X{userId}|%X{msgId}|%X{transCode}|%logger{10}|%msg%n
+			]]>
+			</pattern>
+
+		</layout>
+	</appender> 
+
+	<appender name="appLog"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${catalina.base}/logs/mall-vendor-app.log</file>
+		<prudent>false</prudent>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${catalina.base}/logs/mall-vendor-app.%d{yyyyMMdd}.%i.log
+			</fileNamePattern>
+			<maxHistory>60</maxHistory>
+			<timeBasedFileNamingAndTriggeringPolicy
+				class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>100MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<pattern>
+			<![CDATA[
+			%date{yy-MM-dd HH:mm:ss.SSS}|%X{sessionId}|%X{gloId}|%level|%X{msgId}|%X{userId}|%logger{10}|%msg%n
+			]]>
+			</pattern>
+		</layout>
+	</appender> -->
+
+	
+	<logger name="org.apache" level="error" additivity="false">
+		<appender-ref ref="stdout" />
+	</logger>
+
+	<root level="info">
+		<appender-ref ref="stdout" />
+	</root>
+</configuration>

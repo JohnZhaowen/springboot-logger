@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration status="info">
+	 <Properties>
+        <property name="log_pattern"> %d{yy-MM-dd HH:mm:ss,SSS}|%-5p|%c{1}|%m%n</property> 
+        <property name="basePath">./logs</property>
+
+        <property name="common-msg">${basePath}/datalink.log</property>
+        <property name="rollingfile_common-msg">${basePath}/datalink%d{yyyy-MM-dd}.log</property>
+
+        <property name="error-msg">${basePath}/error.log</property>
+        <property name="rollingfile_error-msg">${basePath}/error%d{yyyy-MM-dd}.log</property>
+        
+        <property name="log.sql.level">info</property>
+
+    </Properties>
+    <!--先定义所有的appender -->
+    <appenders>
+        <!--输出控制台的配置 -->
+        <Console name="Console" target="SYSTEM_OUT">
+            <!--控制台只输出level及以上级别的信息（onMatch），其他的直接拒绝（onMismatch） -->
+            <ThresholdFilter level="info" onMatch="ACCEPT" onMismatch="DENY" />
+            <!--输出日志的格式 -->
+            <PatternLayout pattern="${log_pattern}" />
+        </Console>
+
+
+        <RollingFile name="rollingfile_common-msg"
+            filename="${common-msg}" filePattern="${rollingfile_common-msg}"
+            append="true">
+            <Filters>
+                <ThresholdFilter level="error" onMatch="DENY" onMismatch="NEUTRAL"/>
+                <ThresholdFilter level="info" onMatch="ACCEPT" onMismatch="DENY"/>
+             </Filters>
+            <Policies>
+                <TimeBasedTriggeringPolicy />
+            </Policies>
+        </RollingFile>
+
+        <RollingFile name="rollingfile_error-msg"
+            filename="${error-msg}" filePattern="${rollingfile_error-msg}"
+            append="true">
+             <ThresholdFilter level="error" onMatch="ACCEPT" onMismatch="DENY"/>
+            <PatternLayout>
+                <Pattern>%d{yyyy-MM-dd HH:mm:ss} %-5level %class{36} %L %M - %msg%xEx%n</Pattern>
+            </PatternLayout>
+            <Policies>
+                <TimeBasedTriggeringPolicy />
+            </Policies>
+        </RollingFile>
+    </appenders>
+    
+    <Loggers>  
+        <Root level="info">  
+            <AppenderRef ref="Console" />  
+            <AppenderRef ref="RollingRandomAccessFile" />  
+        </Root>
+ 
+        <Logger name="com.mengdee.dao" level="${log.sql.level}" additivity="false">
+             <AppenderRef ref="Console" />
+        </Logger>
+    </Loggers>   
+   
+
+</configuration>
